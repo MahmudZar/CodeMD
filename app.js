@@ -1,4 +1,4 @@
-// Project Opener - Main Application
+// CodeMd - Main Application
 const notyf = new Notyf({
   duration: 3000,
   position: { x: "right", y: "top" },
