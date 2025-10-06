@@ -8,6 +8,14 @@
     --warning: #ffc107;
     --danger: #dc3545;
     --shadow: rgba(0, 0, 0, 0.1);
+    /* New variables for code highlighting */
+    --code-bg: #f6f8fa;
+    --code-fg: #24292e;
+    --code-comment: #6a737d;
+    --code-keyword: #d73a49;
+    --code-string: #032f62;
+    --code-function: #6f42c1;
+    --code-number: #005cc5;
 }
 
 [data-theme="dark"] {
@@ -16,6 +24,14 @@
     --border: #3c3c3c;
     --hover: #2d2d30;
     --shadow: rgba(0, 0, 0, 0.3);
+    /* Dark theme code colors */
+    --code-bg: #2d2d30;
+    --code-fg: #d4d4d4;
+    --code-comment: #608b4e;
+    --code-keyword: #569cd6;
+    --code-string: #ce9178;
+    --code-function: #dcdcaa;
+    --code-number: #b5cea8;
 }
 
 * {
@@ -244,14 +260,102 @@ progress::-webkit-progress-value {
 #previewCode {
     margin: 0;
     padding: 1rem;
-    
-    color: var(--fg);
+    background: var(--code-bg) !important;
+    color: var(--code-fg) !important;
     font-size: 0.85rem;
     line-height: 1.5;
     max-height: 500px;
     overflow-y: auto;
     white-space: pre-wrap;
     word-wrap: break-word;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+}
+
+/* Prism.js theme overrides - use CSS variables */
+:not(pre)>code[class*=language-],
+pre[class*=language-] {
+    background: var(--hover) !important;
+    color: var(--fg) !important;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: var(--fg);
+    opacity: 0.6;
+}
+
+.token.punctuation {
+    color: var(--fg);
+    opacity: 0.8;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+    color: var(--accent);
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+    color: var(--success);
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+    color: var(--fg);
+    opacity: 0.9;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+    color: var(--accent);
+    font-weight: 500;
+}
+
+.token.function,
+.token.class-name {
+    color: var(--warning);
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+    color: var(--danger);
+}
+
+.token.important,
+.token.bold {
+    font-weight: bold;
+}
+
+.token.italic {
+    font-style: italic;
+}
+
+/* Dark theme specific overrides */
+[data-theme="dark"] :not(pre)>code[class*=language-],
+[data-theme="dark"] pre[class*=language-] {
+    background: var(--hover) !important;
+}
+
+/* Ensure code blocks are readable */
+#previewCode {
+    background: var(--hover) !important;
+    color: var(--fg) !important;
 }
 
 /* JSTree theme overrides */
@@ -259,10 +363,17 @@ progress::-webkit-progress-value {
     margin-left: 0;
 }
 
+.jstree-default .jstree-icon {
+    color: var(--accent);
+}
+
 .jstree-default .jstree-anchor {
     color: var(--fg);
-    padding: 2px 4px;
+    padding: 4px 8px;
     border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .jstree-default .jstree-anchor:hover {
@@ -271,6 +382,19 @@ progress::-webkit-progress-value {
 
 .jstree-default .jstree-clicked {
     background: var(--accent) !important;
+    color: white !important;
+}
+
+.jstree-default .jstree-clicked .jstree-icon {
+    color: white !important;
+}
+
+/* Folder icons */
+.jstree-default .bi-folder-fill {
+    color: var(--warning);
+}
+
+.jstree-default .jstree-clicked .bi-folder-fill {
     color: white !important;
 }
 
