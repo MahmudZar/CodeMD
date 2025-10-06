@@ -6,6 +6,7 @@ const notyf = new Notyf({
 
 let fileHandles = []; // {file, path, size}
 let markdown = "";
+let projectRootName = "project-structure"; // Default fallback name
 
 /* ---------- DOM References ---------- */
 const picker = document.getElementById("folderPicker");
@@ -183,6 +184,7 @@ async function readDirectory(directoryEntry, path, fileArray) {
 resetBtn.onclick = () => {
   fileHandles = [];
   markdown = "";
+  projectRootName = "project-structure";  // Reset to default
   dropZone.hidden = false;
   document.getElementById("treeContainer").hidden = true;
   preview.hidden = true;
@@ -215,6 +217,9 @@ async function handleFiles({ target }) {
     const firstPath = files[0].name;
     rootName = firstPath.split(".")[0] || "Project";
   }
+
+  // Store the root name globally for download filename
+  projectRootName = rootName;
 
   progress.value = 0;
   progress.hidden = false;
@@ -717,7 +722,16 @@ downloadBtn.onclick = () => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "project-structure.md";
+    
+    // Use dynamic filename based on project root name
+    const sanitizedName = projectRootName
+      .replace(/[^a-z0-9]/gi, '-')  // Replace non-alphanumeric with dash
+      .replace(/-+/g, '-')            // Replace multiple dashes with single
+      .replace(/^-|-$/g, '')          // Remove leading/trailing dashes
+      .toLowerCase();                 // Convert to lowercase
+    
+    a.download = `${sanitizedName || 'project-structure'}.md`;
+    
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
