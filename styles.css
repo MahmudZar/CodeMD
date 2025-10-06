@@ -59,10 +59,31 @@ header {
     z-index: 100;
 }
 
-header h1 {
-    margin: 0;
-    font-size: 1.5rem;
-    font-weight: 600;
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 40px;
+    width: auto;
+    transition: opacity 0.3s ease;
+}
+
+.dark-logo {
+    display: none;
+}
+
+.light-logo {
+    display: block;
+}
+
+[data-theme="dark"] .dark-logo {
+    display: block;
+}
+
+[data-theme="dark"] .light-logo {
+    display: none;
 }
 
 #themeToggle {
