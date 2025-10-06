@@ -380,7 +380,7 @@ async function renderTree(rootName) {
         icons: true, // Enable icons
       },
     },
-    plugins: ["search", "wholerow", "types"],
+    plugins: ["search", "types"],
     types: {
       default: {
         icon: "bi bi-file-earmark",
